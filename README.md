@@ -1,7 +1,6 @@
 # GS-Codec: A Gaussian-Splatting Bottleneck for Neural Audio Coding
 
 [![Demo](https://img.shields.io/badge/demo-audio%20samples-blue)](https://ronaluf.github.io/gs-codec/)
-[![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97-model-yellow)](https://huggingface.co/ronaluf/gs-codec-24khz)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue)](pyproject.toml)
 
@@ -16,13 +15,13 @@ Each 3-second segment of the encoder latent is represented as a weighted sum of 
 primitives, fitted by an inner optimization loop during training and regressed in a single forward
 pass by the **GS Predictor** at inference. Scalar quantization is applied only after training, so a
 single checkpoint covers a continuous range of bitrates by changing the number of primitives
-`N_G` and the bit depth `B`.
+$`N_G`$ and the bit depth $`B`$.
 
 <p align="center">
   <img src="assets/gs_codec_pipeline.png" width="900" alt="GS-Codec pipeline">
 </p>
 
-**Training (top):** the encoder latent is approximated by `N_G` Gaussian primitives via an inner
+**Training (top):** the encoder latent is approximated by $`N_G`$ Gaussian primitives via an inner
 optimization loop. **Inference (bottom):** the GS Predictor regresses the primitive parameters in a
 single pass; they are then quantized, transmitted, and decoded.
 
@@ -66,16 +65,17 @@ gscodec reconstruct speech.wav speech_decoded.wav --mode iterative
 | Argument | Values | Description |
 |---|---|---|
 | `mode` | `predictor` (default), `iterative` | GS Predictor (single pass) or inner Adam fitting (300 steps) |
-| `n_gaussians` | any `N_G` | primitives per 3 s segment |
-| `n_bits` | `B` | bits per scale and amplitude (k-means codebooks) |
+| `n_gaussians` | any $`N_G`$ | primitives per 3 s segment |
+| `n_bits` | $`B`$ | bits per scale and amplitude (k-means codebooks) |
 | `freeze_positions` | `False` (default), `True` | centers predicted and sent with 10 bits, or fixed to a uniform grid |
 
 ## Bitrate
 
-Per 3-second segment with `C = 32` latent channels:
+Per 3-second segment with $`C = 32`$ latent channels:
 
-```
-bits = (C + 1) · N_G · B + N_G · B_μ        B_μ = 10 (free centers) or 0 (grid)
+```math
+\text{bits} = (C + 1)\, N_G\, B + N_G\, B_\mu, \qquad
+B_\mu = \begin{cases} 10 & \text{free centers} \\ 0 & \text{grid centers} \end{cases}
 ```
 
 ```bash
@@ -83,15 +83,9 @@ gscodec bitrate --n_gaussians 102 --n_bits 5                     # 17850 bits / 
 gscodec bitrate --n_gaussians 109 --n_bits 5 --freeze_positions  # 17985 bits / 3 s = 5.995 kbps
 ```
 
-## Pretrained model
+## Pretrained models
 
-| Model | Sample rate | Latent | Encoder / decoder | GS Predictor |
-|---|---|---|---|---|
-| [`ronaluf/gs-codec-24khz`](https://huggingface.co/ronaluf/gs-codec-24khz) | 24 kHz mono | 32 × 75 Hz | SEANet, 64 filters, Snake, 55.45M | 1.04M |
-
-A model directory contains `config.json`, `model.safetensors` and `codebooks.json`. Codebooks are
-keyed by `mode/{free,grid}/ng<N_G>/b<B>`; fit new operating points with
-[`scripts/calibrate_codebooks.py`](scripts/calibrate_codebooks.py).
+Pretrained checkpoints will be released soon.
 
 ## Training
 
