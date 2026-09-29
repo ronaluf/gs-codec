@@ -74,9 +74,10 @@ gscodec reconstruct speech.wav speech_decoded.wav --mode iterative
 Per 3-second segment with $`C = 32`$ latent channels:
 
 ```math
-\text{bits} = (C + 1)\, N_G\, B + N_G\, B_\mu, \qquad
-B_\mu = \begin{cases} 10 & \text{free centers} \\ 0 & \text{grid centers} \end{cases}
+\text{bits} = (C + 1)\, N_G\, B + N_G\, B_\mu
 ```
+
+with $`B_\mu = 10`$ for free centers and $`B_\mu = 0`$ for grid centers.
 
 ```bash
 gscodec bitrate --n_gaussians 102 --n_bits 5                     # 17850 bits / 3 s = 5.950 kbps
