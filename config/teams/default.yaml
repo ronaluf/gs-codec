@@ -1,0 +1,12 @@
+default:
+  dora_dir: ./outputs
+  partitions:
+    global: debug
+    team: debug
+  reference_dir: /tmp
+darwin:
+  dora_dir: ./outputs
+  partitions:
+    global: debug
+    team: debug
+  reference_dir: /tmp

@@ -1,0 +1,49 @@
+# @package __global__
+
+defaults:
+  - encodec/default
+
+encodec:
+  quantizer: gaussian_splat
+
+seanet:
+  dimension: 32
+  n_filters: 64
+  activation: snake
+
+gaussian_splat:
+  n_gaussians: 80
+  n_iters: 100
+  lr: 0.4
+  lr_position_mult: 1.0
+  lr_schedule: none
+  lr_final_ratio: 0.1
+  lr_warmup_iters: 0
+  shared_positions: true
+  shared_scales: true
+  freeze_positions: true
+  freeze_scales: false
+  freeze_bias: true
+  normalize_input: false
+  warmup_mode: false
+  param_clamp_scale_min: null
+  param_clamp_scale_max: null
+  param_clamp_weight_min: null
+  param_clamp_weight_max: null
+
+  amortized_predictor: false
+  amortized_d_model: 128
+  amortized_n_heads: 4
+  amortized_n_blocks: 4
+  amortized_n_decoder_layers: 4
+  amortized_pos_zero_init: false
+  amortized_scale_bias_mult: 1.0
+  amortized_variable_ng: true
+  amortized_ng_min: 40
+  amortized_ng_max: 160
+  amortized_mode_sampling: true
+  amortized_frozen_mode_prob: 0.5
+  amortized_param_noise: 0.02
+  amortized_pos_lr_mult: 5.0
+  amortized_pretrained_codec_path: null
+  amortized_freeze_codec: true

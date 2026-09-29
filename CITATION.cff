@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the paper below."
+title: "GS-Codec: A Gaussian-Splatting Bottleneck for Neural Audio Coding"
+authors:
+  - family-names: Aluf
+    given-names: Ron
+  - family-names: Canfi
+    given-names: Alon
+  - family-names: Nachmani
+    given-names: Eliya
+license: MIT
+repository-code: "https://github.com/ronaluf/gs-codec"
+url: "https://ronaluf.github.io/gs-codec/"
+preferred-citation:
+  type: conference-paper
+  title: "GS-Codec: A Gaussian-Splatting Bottleneck for Neural Audio Coding"
+  authors:
+    - family-names: Aluf
+      given-names: Ron
+    - family-names: Canfi
+      given-names: Alon
+    - family-names: Nachmani
+      given-names: Eliya
+  collection-title: "Advances in Neural Information Processing Systems"
+  year: 2026

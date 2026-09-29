@@ -1,0 +1,70 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gscodec"
+dynamic = ["version"]
+description = "GS-Codec: a Gaussian-splatting bottleneck for neural audio coding"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+  { name = "Ron Aluf" },
+  { name = "Alon Canfi" },
+  { name = "Eliya Nachmani" },
+]
+requires-python = ">=3.9"
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Topic :: Multimedia :: Sound/Audio :: Speech",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+  "torch>=2.1",
+  "torchaudio>=2.1",
+  "numpy",
+  "julius",
+  "soundfile",
+  "av",
+  "safetensors",
+  "huggingface_hub",
+  "tqdm",
+]
+
+[project.optional-dependencies]
+train = [
+  "dora-search",
+  "flashy>=0.0.1",
+  "hydra-core>=1.1",
+  "hydra_colorlog",
+  "omegaconf",
+  "einops",
+  "torchmetrics",
+  "pesq",
+  "pystoi",
+]
+eval = [
+  "pesq",
+  "pystoi",
+  "jiwer",
+  "transformers",
+]
+dev = ["pytest", "pyflakes"]
+
+[project.scripts]
+gscodec = "gscodec.__main__:main"
+
+[project.urls]
+Homepage = "https://ronaluf.github.io/gs-codec/"
+Repository = "https://github.com/ronaluf/gs-codec"
+
+[tool.setuptools.packages.find]
+include = ["gscodec*"]
+
+[tool.setuptools.dynamic]
+version = { attr = "gscodec.__version__" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::FutureWarning"]

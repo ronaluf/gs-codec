@@ -1,0 +1,20 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.venv/
+venv/
+.DS_Store
+
+# experiments and data
+outputs/
+egs/*/
+!egs/README.md
+pretrained/
+runs/
+*.th
+*.safetensors
+*.gsc
+wandb/

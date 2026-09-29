@@ -1,0 +1,54 @@
+# @package __global__
+
+# Set gaussian_splat.amortized_pretrained_codec_path to the codec checkpoint.
+
+defaults:
+  - compression/default
+  - /model: encodec/encodec_gaussian
+  - override /dset: audio/default
+  - _self_
+
+gaussian_splat:
+  n_gaussians: 100
+  freeze_positions: false
+  amortized_predictor: true
+  amortized_freeze_codec: true
+
+adversarial:
+  adversaries: []
+
+channels: 1
+sample_rate: 24000
+
+losses:
+  adv: 0.
+  feat: 0.
+  l1: 0.
+  mel: 0.
+  msspec: 0.
+  sisnr: 0.
+  penalty: 1.
+
+dataset:
+  segment_duration: 3
+  batch_size: 8
+  num_workers: 8
+  train:
+    num_samples: 500000
+  valid:
+    segment_duration: 3
+    num_samples: 10000
+  evaluate:
+    segment_duration: 3
+    batch_size: 16
+    num_samples: 1000
+  generate:
+    segment_duration: 3
+    batch_size: 8
+    num_samples: 50
+
+optim:
+  epochs: 400
+  updates_per_epoch: 2000
+  lr: 9e-5
+  max_norm: 1.0

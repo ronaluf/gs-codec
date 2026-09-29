@@ -1,0 +1,10 @@
+# @package __global__
+
+datasource:
+  max_sample_rate: 24000
+  max_channels: 1
+
+  train: egs/librilight_large
+  valid: egs/libriTTS_test
+  evaluate: egs/libriTTS_test
+  generate: egs/libriTTS_test

@@ -1,0 +1,40 @@
+# @package __global__
+
+defaults:
+  - compression/default
+  - /model: encodec/encodec_gaussian
+  - override /dset: audio/default
+  - _self_
+
+channels: 1
+sample_rate: 24000
+
+losses:
+  adv: 4.
+  feat: 4.
+  l1: 0.1
+  msspec: 2.
+  penalty: 20.
+
+dataset:
+  segment_duration: 3
+  batch_size: 16
+  num_workers: 8
+  train:
+    num_samples: 500000
+  valid:
+    segment_duration: 3
+    num_samples: 10000
+  evaluate:
+    segment_duration: 3
+    batch_size: 16
+    num_samples: 1000
+  generate:
+    segment_duration: 3
+    batch_size: 8
+    num_samples: 50
+
+optim:
+  epochs: 200
+  updates_per_epoch: 2000
+  lr: 1e-4
